@@ -11,7 +11,7 @@ namespace School_Management_System.Models
 
         [Required, EmailAddress]
         public required string Email { get; set; }
-
+        public string? UserId { get; set; }
         public string? SubjectSpecialization { get; set; }
 
         public ICollection<Class>? Classes { get; set; }
