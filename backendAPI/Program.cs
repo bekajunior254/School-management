@@ -4,14 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using School_Management_System.Data;
+using School_Management_System.Helpers;
 using System.Text;
-using School_Management_System.Helpers; // For RoleSeeder
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Load configuration
+var configuration = builder.Configuration;
+
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection") 
+        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
 
 // Add Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -19,7 +23,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 // Configure JWT Authentication
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var jwtSettings = configuration.GetSection("JwtSettings");
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -36,7 +40,8 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = jwtSettings["Issuer"],
         ValidAudience = jwtSettings["Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? throw new InvalidOperationException("JWT key is missing"))
+            Encoding.UTF8.GetBytes(jwtSettings["Key"] 
+            ?? throw new InvalidOperationException("JWT key is missing in configuration"))
         )
     };
 });
@@ -44,12 +49,12 @@ builder.Services.AddAuthentication(options =>
 // Add Authorization
 builder.Services.AddAuthorization();
 
-// **Add CORS configuration here**
+// Add CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")  // <-- your frontend origin
+        policy.WithOrigins("http://localhost:5173")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -67,7 +72,7 @@ builder.Services.AddSwaggerGen(c =>
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.Http,
         Scheme = "bearer",
-        Description = "Enter JWT token",
+        Description = "Enter JWT Bearer token.",
         Reference = new OpenApiReference
         {
             Id = JwtBearerDefaults.AuthenticationScheme,
@@ -76,7 +81,6 @@ builder.Services.AddSwaggerGen(c =>
     };
 
     c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         { jwtSecurityScheme, Array.Empty<string>() }
@@ -87,6 +91,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+// Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -95,7 +100,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// **Enable CORS middleware BEFORE Authentication & Authorization**
 app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
@@ -103,7 +107,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Seed Roles
+// Seed roles
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

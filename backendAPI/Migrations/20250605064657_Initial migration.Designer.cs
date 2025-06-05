@@ -12,8 +12,8 @@ using School_Management_System.Data;
 namespace backendAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250531145427_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250605064657_Initial migration")]
+    partial class Initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -295,7 +295,7 @@ namespace backendAPI.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Enrollmentss");
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("School_Management_System.Models.Parent", b =>

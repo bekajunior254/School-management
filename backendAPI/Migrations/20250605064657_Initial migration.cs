@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace backendAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -252,7 +252,7 @@ namespace backendAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Enrollmentss",
+                name: "Enrollments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -263,15 +263,15 @@ namespace backendAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enrollmentss", x => x.Id);
+                    table.PrimaryKey("PK_Enrollments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Enrollmentss_Courses_CourseId",
+                        name: "FK_Enrollments_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "CourseId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Enrollmentss_Students_StudentId",
+                        name: "FK_Enrollments_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId",
@@ -333,13 +333,13 @@ namespace backendAPI.Migrations
                 column: "TeacherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enrollmentss_CourseId",
-                table: "Enrollmentss",
+                name: "IX_Enrollments_CourseId",
+                table: "Enrollments",
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enrollmentss_StudentId",
-                table: "Enrollmentss",
+                name: "IX_Enrollments_StudentId",
+                table: "Enrollments",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -367,7 +367,7 @@ namespace backendAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Enrollmentss");
+                name: "Enrollments");
 
             migrationBuilder.DropTable(
                 name: "Parents");

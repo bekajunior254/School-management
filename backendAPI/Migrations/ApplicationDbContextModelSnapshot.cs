@@ -292,7 +292,7 @@ namespace backendAPI.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Enrollmentss");
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("School_Management_System.Models.Parent", b =>

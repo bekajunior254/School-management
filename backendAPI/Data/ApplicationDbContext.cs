@@ -17,6 +17,6 @@ namespace School_Management_System.Data
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Enrollment> Enrollmentss { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
     }
 }
