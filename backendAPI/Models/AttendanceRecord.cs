@@ -10,10 +10,10 @@ namespace School_Management_System.Models
         Late
     }
 
-    public class Attendance
+    public class AttendanceRecord
     {
         [Key]
-        public int AttendanceId { get; set; }
+        public int AttendanceRecordId { get; set; }
 
         [Required]
         public int StudentId { get; set; }

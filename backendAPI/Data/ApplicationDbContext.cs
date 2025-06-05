@@ -17,6 +17,10 @@ namespace School_Management_System.Data
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+
+        public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<ParentStudentLink> ParentStudentLinks { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace School_Management_System.Models
     public class Class
     {
         [Key]
-        public int Id { get; set; }
+        public int ClassId { get; set; }
 
         [Required]
         public required string Name { get; set; }  // e.g., "Form 1A", "Grade 6"
