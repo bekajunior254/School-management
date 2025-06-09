@@ -28,15 +28,14 @@ namespace School_Management_System.Controllers
             if (teacherUserId == null)
                 return Unauthorized("Teacher user ID not found.");
 
-            // Find courses taught by this teacher (matching UserId string)
             var courses = await _context.Courses
                 .Where(c => c.Teacher != null && c.Teacher.UserId == teacherUserId)
-                .Include(c => c.Enrollments)
-                .ThenInclude(e => e.Student)
+                .Include(c => c.Enrollments!)
+                    .ThenInclude(e => e.Student)
                 .ToListAsync();
 
             var students = courses
-                .SelectMany(c => c.Enrollments.Select(e => e.Student))
+                .SelectMany(c => c.Enrollments!.Select(e => e.Student))
                 .Distinct()
                 .ToList();
 
@@ -53,12 +52,13 @@ namespace School_Management_System.Controllers
                 return Unauthorized("User ID not found.");
 
             var student = await _context.Students
-                .Include(s => s.Enrollments)
+                .Include(s => s.Enrollments!)
                     .ThenInclude(e => e.Course)
                 .Include(s => s.Grades)
-                .FirstOrDefaultAsync(s => s.Email == userId); // Or map UserId to Student another way
+                .FirstOrDefaultAsync(s => s.Email == userId); // Make sure userId maps to Email or change accordingly
 
-            if (student == null) return NotFound();
+            if (student == null)
+                return NotFound("Student not found.");
 
             return Ok(student);
         }

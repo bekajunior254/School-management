@@ -2,7 +2,7 @@ namespace School_Management_System.DTOs
 {
     public class StudentDto
     {
-        public int Id { get; set; }
+        public int StudentId { get; set; }
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }

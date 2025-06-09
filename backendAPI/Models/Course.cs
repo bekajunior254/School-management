@@ -17,5 +17,8 @@ namespace School_Management_System.Models
         public Teacher? Teacher { get; set; }
 
         public ICollection<Enrollment>? Enrollments { get; set; }
+ public ICollection<Grade>? Grades { get; set; }
+
+        public ICollection<AttendanceRecord>? AttendanceRecords { get; set; }
     }
 }

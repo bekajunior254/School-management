@@ -99,7 +99,7 @@ namespace School_Management_System.Controllers
             if (teacher == null) return NotFound("Teacher not found");
 
             // Get all courses taught by teacher
-            var courseIds = teacher.Courses.Select(c => c.CourseId).ToList();
+            var courseIds = teacher.Courses!.Select(c => c.CourseId).ToList();
 
             // Get students enrolled in those courses
             var students = await _context.Enrollments

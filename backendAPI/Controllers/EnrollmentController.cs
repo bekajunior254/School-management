@@ -31,7 +31,7 @@ namespace School_Management_System.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var enrollment = await _context.Enrollments.Include(e => e.Student).Include(e => e.Course)
-                .FirstOrDefaultAsync(e => e.Id == id);
+                .FirstOrDefaultAsync(e => e.EnrollmentId == id);
 
             if (enrollment == null) return NotFound();
             return Ok(enrollment);
@@ -52,7 +52,7 @@ namespace School_Management_System.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, Enrollment enrollment)
         {
-            if (id != enrollment.Id) return BadRequest();
+            if (id != enrollment.EnrollmentId) return BadRequest();
 
             _context.Entry(enrollment).State = EntityState.Modified;
             await _context.SaveChangesAsync();

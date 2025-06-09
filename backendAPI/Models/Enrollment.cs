@@ -6,7 +6,7 @@ namespace School_Management_System.Models
     public class Enrollment
     {
         [Key]
-        public int Id { get; set; }
+        public int EnrollmentId { get; set; }
 
         [Required]
         public int StudentId { get; set; }

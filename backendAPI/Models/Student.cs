@@ -35,6 +35,8 @@ namespace School_Management_System.Models
 
         // Navigation property for attendance records
         public ICollection<AttendanceRecord>? AttendanceRecords { get; set; }
+        public ICollection<ParentStudentLink> ParentLinks { get; set; } = new List<ParentStudentLink>();
+
 
         // Helper property (not mapped to DB) to easily get courses from enrollments
         [NotMapped]
