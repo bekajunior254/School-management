@@ -24,7 +24,7 @@ namespace School_Management_System.Controllers
                 if (!result.Succeeded)
                     return BadRequest(result.Errors);
 
-                return Ok("User registered successfully");
+                return Ok(new { message = "User registered successfully" });
             }
             catch (Exception ex)
             {

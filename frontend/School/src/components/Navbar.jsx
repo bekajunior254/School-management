@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav className="flex justify-between items-center px-6 py-4 bg-white shadow-md mb-6">
       <h1 className="text-xl font-bold text-blue-600">
         <Link to="/" className="hover:text-blue-700">School Management</Link>
-      </h1>
+      </h1> 
       <div className="space-x-6 text-sm font-medium">
         <Link to="/" className="hover:text-blue-500">Home</Link>
 

@@ -43,14 +43,14 @@ const Register = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="text"
+            type="text" 
             name="username"
             placeholder="Username"
             value={formData.username}
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-          />
+          /> <br />
 
           <input
             type="email"
@@ -60,7 +60,7 @@ const Register = () => {
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-          />
+          /> <br />
 
           <input
             type="password"
@@ -70,7 +70,7 @@ const Register = () => {
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-          />
+          /> <br />
 
           <select
             name="role"
@@ -82,7 +82,7 @@ const Register = () => {
             <option value="Teacher">Teacher</option>
             <option value="Parent">Parent</option>
             <option value="Admin">Admin</option>
-          </select>
+          </select> <br />
 
           <button
             type="submit"

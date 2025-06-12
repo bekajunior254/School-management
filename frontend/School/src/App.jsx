@@ -19,7 +19,7 @@ function App() {
         <div className="p-4">
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} /> 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 

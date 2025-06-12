@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (username.trim() === '' || password.trim() === '') {
@@ -13,13 +16,20 @@ export default function Login() {
       return;
     }
 
-    // Mock login process
-    if (username === 'eli' && password === 'password254') {
-      alert('Login successful! Redirecting...');
-      setErrorMsg('');
-      // Redirect to dashboard or set auth state here
-    } else {
-      setErrorMsg('Invalid username or password.');
+    try {
+      const response = await axios.post('http://localhost:5000/api/Auth/login', {
+        username,
+        password,
+      });
+
+      //Store token in localStorage
+      localStorage.setItem('token', response.data.token);
+
+      //  Redirect to dashboard
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrorMsg('Invalid credentials or server error.');
     }
   };
 
